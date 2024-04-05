@@ -9,7 +9,6 @@ if (process.env.NODE_ENV !== "production") {
 const connectToMongo = require("./db");
 connectToMongo(); //connecting to database (MongoDB)
 
-
 const Payment = require("./paymentModel");
 const PurchasedItem = require("./purchasedItemModel");
 const Item = require("./itemModel");
@@ -147,6 +146,18 @@ app.get("/complete-khalti-payment", async (req, res) => {
       error,
     });
   }
+});
+app.get("/create-item", async (req, res) => {
+  let itemData = await Item.create({
+    name: "Headphone",
+    price: 500,
+    inStock: true,
+    category: "vayo pardaina",
+  });
+  res.json({
+    success: true,
+    item: itemData,
+  });
 });
 
 app.listen(3001, () => {
